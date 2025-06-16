@@ -1,4 +1,4 @@
-﻿namespace Strategy_Curso.Models
+namespace Strategy_Curso.Models
 {
     public class Curso
     {
@@ -27,6 +27,7 @@
         {
             return $"Curso: {nome}, Carga Horária: {cargaHoraria} horas, Público Alvo: {publicoAlvo}, Valor: R${valor}, Descrição: {descricao}";
         }
+
     }
          public enum PublicoAlvoEnum
     {
