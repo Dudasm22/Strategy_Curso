@@ -5,7 +5,7 @@ namespace Strategy_Curso.Strategy
 {
     public interface IDataBaseStrategy
     {
-        void InsertCurso(Curso curso);
+        void InserirCurso(Curso curso);
         List<Curso> VisualizarCursos();
     }
 }

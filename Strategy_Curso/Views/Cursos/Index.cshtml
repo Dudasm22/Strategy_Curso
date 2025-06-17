@@ -1,0 +1,85 @@
+﻿@using Strategy_Curso
+@using Strategy_Curso.Models
+@model IEnumerable<Curso>
+
+@{
+    ViewData["Title"] = "Lista de Cursos";
+    string currentDbType = ViewBag.CurrentDbType;
+}
+
+<h1>Lista de Cursos (@currentDbType)</h1>
+
+@if (TempData["Message"] != null)
+{
+    <div class="alert alert-success">
+        @TempData["Message"]
+    </div>
+}
+@if (TempData["Error"] != null)
+{
+    <div class="alert alert-danger">
+        @TempData["Error"]
+    </div>
+}
+
+<p>
+    <a asp-action="Create" class="btn btn-primary">Cadastrar Novo Curso</a>
+</p>
+
+<div class="card mt-4">
+    <div class="card-header">
+        <h4>Alternar Banco de Dados</h4>
+    </div>
+    <div class="card-body">
+        <form asp-action="ChangeDatabase" method="post">
+            <div class="form-group">
+                <label for="dbType">Escolha o Banco de Dados:</label>
+                <select name="dbType" id="dbType" class="form-control">
+                    @{
+                        var isMySQLSelected = (currentDbType == "MySQL");
+                        var isSQLServerSelected = (currentDbType == "SQLServer");
+                    }
+                    <option value="MySQL" selected="@isMySQLSelected">MySQL</option>
+                    <option value="SQLServer" selected="@isSQLServerSelected">SQL Server</option>
+                </select>
+            </div>
+            <button type="submit" class="btn btn-secondary mt-2">Alterar DB</button>
+        </form>
+    </div>
+</div>
+
+
+<table class="table-striped mt-4 table">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Nome</th>
+            <th>Carga Horária</th>
+            <th>Público Alvo</th>
+            <th>Valor</th>
+            <th>Descrição</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model != null && Model.Any())
+        {
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@Html.DisplayFor(modelItem => item.id)</td>
+                    <td>@Html.DisplayFor(modelItem => item.nome)</td>
+                    <td>@Html.DisplayFor(modelItem => item.cargaHoraria)</td>
+                    <td>@Html.DisplayFor(modelItem => item.publicoAlvo)</td>
+                    <td>R$ @Html.DisplayFor(modelItem => item.valor)</td>
+                    <td>@Html.DisplayFor(modelItem => item.descricao)</td>
+                </tr>
+            }
+        }
+        else
+        {
+            <tr>
+                <td colspan="6">Nenhum curso cadastrado neste banco de dados.</td>
+            </tr>
+        }
+    </tbody>
+</table>
